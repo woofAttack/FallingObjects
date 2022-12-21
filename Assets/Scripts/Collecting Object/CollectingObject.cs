@@ -2,30 +2,37 @@
 using UnityEngine;
 
 [RequireComponent(typeof(MovementFalling))]
-public abstract class CollectingObject : MonoBehaviour
+public abstract class CollectingObject : MonoBehaviour, IDestructible
 {
     public event Action OnCollect;
+    public event Action<IDestructible> OnDestroyObject;
 
     [SerializeField] private MovementFalling _movening;
 
+    #region Unity Engine 
     private void Awake()
     {
-        Debug.Log("Awake");
-
         _movening.ThrowExceptionIfNull();
         ChildAwake();
+
+        this.Disable();
     }
-    private protected virtual void ChildAwake() { }
 
     private void OnEnable()
     {
-        Debug.Log("Enable");
+        ChildOnEnable();
     }
 
     private void OnDisable()
     {
-        Debug.Log("Disable");
+        ChildOnDisable();
     }
+
+    private protected virtual void ChildAwake() { }
+    private protected virtual void ChildOnEnable() { }
+    private protected virtual void ChildOnDisable() { }
+
+    #endregion
 
     public void EnableMovening()
     {
@@ -49,4 +56,9 @@ public abstract class CollectingObject : MonoBehaviour
     }
 
     private protected abstract void Collecting();
+
+    private void OnDestroy()
+    {
+        OnDestroyObject.Invoke(this);
+    }
 }

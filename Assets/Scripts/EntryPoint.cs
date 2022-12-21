@@ -15,18 +15,15 @@ public class EntryPoint : MonoBehaviour
     private Score _playerScore;
 
     [Header("Spawner Setting")]
-    [SerializeField] private SpawnZone _zone;
-    [SerializeField] private SpawnList _list;
-    private FruitMechanic.Builder _builderFruit;
-    private BombMechanic.Builder _builderBomb;
-
-    //private SpawnPrefabList _listPrefab;
-    //private Spawner _spawner;
+    [SerializeField] private SpawnPrefabCollectingObjects _list;
+    private FruitPrefabHandler _fruit;
+    private BombPrefabHandler _bomb;
 
     [Header("Game Setting")]
-
-
+    [SerializeField] private GameOverView _overView;
     [SerializeField] private Timer _timer;
+    private GameOverPresenter _gameOverPresenter;
+    private ScorePresenter _gameScorePresenter;
     private Game _game;
 
     private void Awake()
@@ -53,45 +50,48 @@ public class EntryPoint : MonoBehaviour
         _playerScore = new Score();
 
         _scoreView.ThrowExceptionIfNull();
-        _scoreView.SetText(START_SCORE_VALUE);
+        _scoreView.SetScoreText(START_SCORE_VALUE);
 
         _scorePresenter = new ScorePresenter(_playerScore, _scoreView);
     }
     
     private void SetupSpawner()
     {
-        _zone.ThrowExceptionIfNull();
         _list.ThrowExceptionIfNull();
 
-        _builderFruit = new FruitMechanic.Builder(_playerHealth, _playerScore);
-        _builderBomb = new BombMechanic.Builder(_playerHealth);
+        _fruit = new FruitPrefabHandler(_playerHealth, _playerScore);
+        _bomb = new BombPrefabHandler(_playerHealth);
 
-        _list.Init(_builderFruit, _builderBomb);
+        _list.Init(_fruit, _bomb);
     }
     
     private void SetupGame()
     {
         _timer.ThrowExceptionIfNull();
 
-        _game = new Game(_list, _timer);
+        _gameScorePresenter = new ScorePresenter(_playerScore, _overView);
+
+        _game = new Game(_list, _timer, _playerHealth);
+
+        _gameOverPresenter = new GameOverPresenter(_game, _overView);
     }
 
     private void OnEnable()
     {
         _healthPresenter.Enable();
         _scorePresenter.Enable();
+        _gameScorePresenter.Enable();
+        _gameOverPresenter.Enable();
         _game.Enable();
-
-        _playerHealth.OnOver += _game.End;
     }
 
     private void OnDisable()
     {
         _healthPresenter.Disable();
         _scorePresenter.Disable();
+        _gameScorePresenter.Disable();
+        _gameOverPresenter.Disable();
         _game.Disable();
-
-        _playerHealth.OnOver -= _game.End;
     }
 
     private void OnValidate()
