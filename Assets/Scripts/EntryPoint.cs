@@ -15,7 +15,7 @@ public class EntryPoint : MonoBehaviour
     private Score _playerScore;
 
     [Header("Spawner Setting")]
-    [SerializeField] private SpawnPrefabCollectingObjects _list;
+    [SerializeField] private SpawnPrefabCollectingObjects _listPrefab;
     private FruitPrefabHandler _fruit;
     private BombPrefabHandler _bomb;
 
@@ -45,7 +45,6 @@ public class EntryPoint : MonoBehaviour
 
         _healthPresenter = new HealthPresenter(_playerHealth, _healthView);
     }
-
     private void SetupScore()
     {
         _playerScore = new Score();
@@ -54,18 +53,16 @@ public class EntryPoint : MonoBehaviour
         _scoreView.SetScoreText(START_SCORE_VALUE);
 
         _scorePresenter = new ScorePresenter(_playerScore, _scoreView);
-    }
-    
+    }   
     private void SetupSpawner()
     {
-        _list.ThrowExceptionIfNull();
+        _listPrefab.ThrowExceptionIfNull();
 
         _fruit = new FruitPrefabHandler(_playerHealth, _playerScore);
         _bomb = new BombPrefabHandler(_playerHealth);
 
-        _list.Init(_fruit, _bomb);
-    }
-    
+        _listPrefab.Init(_fruit, _bomb);
+    }  
     private void SetupGame()
     {
         _timer.ThrowExceptionIfNull();
@@ -75,7 +72,7 @@ public class EntryPoint : MonoBehaviour
 
         _gameScorePresenter = new ScorePresenter(_playerScore, _overView);
 
-        _game = new Game(_list, _timer, _playerHealth);
+        _game = new Game(_listPrefab, _timer, _playerHealth);
 
         _gameOverPresenter = new GameOverPresenter(_game, _overView);
     }
@@ -88,7 +85,6 @@ public class EntryPoint : MonoBehaviour
         _gameOverPresenter.Enable();
         _game.Enable();
     }
-
     private void OnDisable()
     {
         _healthPresenter.Disable();
@@ -97,7 +93,6 @@ public class EntryPoint : MonoBehaviour
         _gameOverPresenter.Disable();
         _game.Disable();
     }
-
     private void OnValidate()
     {
         _startHealthCount = Mathf.Clamp(_startHealthCount, 1, int.MaxValue);
