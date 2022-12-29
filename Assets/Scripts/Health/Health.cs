@@ -2,8 +2,9 @@
 
 public class Health
 {
-    public Action<int> OnChange;
-    public Action OnOver;
+    public event Action<int> OnChange;
+    public event Action OnReduce;
+    public event Action OnOver;
 
     private int _count;
 
@@ -21,7 +22,9 @@ public class Health
             throw new Exception("Health already equal zero.");
 
         _count -= 1;
+
         OnChange?.Invoke(_count);
+        OnReduce?.Invoke();
 
         if (_count == 0)
             OnOver?.Invoke();

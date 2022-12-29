@@ -7,8 +7,13 @@ public class GameOverView : MonoBehaviour, IScoreView
     [SerializeField] private Text _score;
     [SerializeField] private Button _button;
 
+    [SerializeField] private ScoreView _scoreView;
+    [SerializeField] private Background _background;
+
     private void Awake()
     {
+        _scoreView.ThrowExceptionIfNull();
+        _background.ThrowExceptionIfNull();
         _score.ThrowExceptionIfNull();
         _button.ThrowExceptionIfNull();
 
@@ -30,8 +35,14 @@ public class GameOverView : MonoBehaviour, IScoreView
         _score.text = $"{value} points!";
     }
 
+    public void HideOtherUI()
+    {
+        _scoreView.Disable();
+    }
+
     public void Show()
     {
+        _background.SetStateFade();
         this.Enable();
     }
 

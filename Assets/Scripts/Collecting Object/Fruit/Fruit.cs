@@ -1,14 +1,20 @@
 ﻿using System;
 using UnityEngine;
 
+[RequireComponent(typeof(FruitAnimator))]
 public class Fruit : CollectingObject
 {
-    public event Action OnCrush;
-
     [SerializeField] private int _valueScore;
+
+    private FruitAnimator _animator;
 
     private Score _playerScore;
     private Health _playerHealth;
+
+    private protected override void ChildAwake()
+    {
+        _animator = GetComponent<FruitAnimator>();
+    }
 
     public void Init(Score playerScore, Health playerHealth)
     {
@@ -21,18 +27,22 @@ public class Fruit : CollectingObject
     private protected override void Collecting()
     {
         _playerScore.Add(_valueScore);
-        Destroy();
+
+        Deactivate();
+        _animator.SetCollectState();
     }
 
     public void Crush()
     {
         _playerHealth.ReduceByOne();
-        Destroy();
+
+        Deactivate();
+        _animator.SetCrushState();      
     }
 
-    public void Destroy()
+    private protected override void OnFade()
     {
-        Destroy(gameObject);
+        _animator.SetFadeState();
     }
 
     private void OnValidate()

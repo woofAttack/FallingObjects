@@ -2,7 +2,7 @@
 
 public class Game
 {
-    public event Action OnEnd;
+    public Action OnEnd;
 
     private SpawnPrefabCollectingObjects _spawnList;
     private Health _health;
@@ -16,7 +16,7 @@ public class Game
         _timer = timer ?? throw new System.ArgumentNullException(nameof(timer));
         _health = health ?? throw new System.ArgumentNullException(nameof(health));
 
-        _container = new OperationContainer<CollectingObject>((x) => x.DisableMovening());
+        _container = new OperationContainer<CollectingObject>((x) => x.Fade());
     }
 
     public void Enable()
@@ -48,6 +48,6 @@ public class Game
         var spawnedObject = _spawnList.MakeRandom();
         _container.AddNew(spawnedObject);
 
-        spawnedObject.EnableMovening();
+        spawnedObject.Activate();
     }
 }

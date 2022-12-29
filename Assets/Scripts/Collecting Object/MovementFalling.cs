@@ -18,6 +18,6 @@ public class MovementFalling : MonoBehaviour
         _selfTransform.Translate(Vector3.down * _speed * Time.deltaTime);
     }
 
-    public void Enable() => _canMove = true;
-    public void Disable() => _canMove = false;
+    public void Activate() => _canMove = true;
+    public void Deactivate() => _canMove = false;
 }

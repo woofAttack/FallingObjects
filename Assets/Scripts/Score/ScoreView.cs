@@ -12,6 +12,6 @@ public class ScoreView : MonoBehaviour, IScoreView
 
     public void SetScoreText(int value)
     {
-        _score.text = $"{value}";
+        _score.text = $"Points: {value}";
     }
 }

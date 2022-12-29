@@ -2,17 +2,24 @@
 using UnityEngine;
 
 [RequireComponent(typeof(MovementFalling))]
+[RequireComponent(typeof(Clickable))]
 public abstract class CollectingObject : MonoBehaviour, IDestructible
 {
     public event Action OnCollect;
     public event Action<IDestructible> OnDestroyObject;
 
     [SerializeField] private MovementFalling _movening;
+    private Clickable _clickableComponent;
 
     #region Unity Engine 
     private void Awake()
     {
+        _clickableComponent = GetComponent<Clickable>();
+        _movening = GetComponent<MovementFalling>();
+
+        _clickableComponent.ThrowExceptionIfNull();
         _movening.ThrowExceptionIfNull();
+
         ChildAwake();
 
         this.Disable();
@@ -20,11 +27,13 @@ public abstract class CollectingObject : MonoBehaviour, IDestructible
 
     private void OnEnable()
     {
+        _clickableComponent.OnClick += Collect;
         ChildOnEnable();
     }
 
     private void OnDisable()
     {
+        _clickableComponent.OnClick -= Collect;
         ChildOnDisable();
     }
 
@@ -34,29 +43,36 @@ public abstract class CollectingObject : MonoBehaviour, IDestructible
 
     #endregion
 
-    public void EnableMovening()
+    public void Activate()
     {
-        _movening.Enable();
+        _movening.Activate();
+        _clickableComponent.Activate();
+    }
+    public void Deactivate()
+    {
+        _movening.Deactivate();
+        _clickableComponent.Deactivate();
     }
 
-    public void DisableMovening()
+    public void Fade()
     {
-        _movening.Disable();
+        Deactivate();
+        OnFade();
     }
+    private protected virtual void OnFade() { }
 
-    private void OnMouseDown()
-    {
-        Collect();
-    }
 
     public void Collect()
     {
         Collecting();
         OnCollect?.Invoke();
     }
-
     private protected abstract void Collecting();
 
+    public void Destroy()
+    {
+        Destroy(gameObject);
+    }
     private void OnDestroy()
     {
         OnDestroyObject.Invoke(this);

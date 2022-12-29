@@ -1,4 +1,6 @@
-﻿public class GameOverPresenter
+﻿using System;
+
+public class GameOverPresenter
 {
     private Game _game;
     private GameOverView _view;
@@ -11,11 +13,13 @@
 
     public void Enable()
     {
+        _game.OnEnd += _view.HideOtherUI;
         _game.OnEnd += _view.Show;
     }
 
     public void Disable()
     {
+        _game.OnEnd -= _view.HideOtherUI;
         _game.OnEnd -= _view.Show;
     }
 }

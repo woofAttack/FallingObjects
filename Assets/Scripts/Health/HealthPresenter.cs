@@ -13,11 +13,13 @@ public class HealthPresenter
 
     public void Enable()
     {
-        _model.OnChange += _view.SetText;
+        _model.OnChange += _view.SetCurrentValue;
+        _model.OnReduce += _view.BrakeHeartByOne;
     }
 
     public void Disable()
     {
-        _model.OnChange -= _view.SetText;
+        _model.OnChange -= _view.SetCurrentValue;
+        _model.OnReduce -= _view.BrakeHeartByOne;
     }
 }

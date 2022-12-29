@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{3620534E-8D46-1477-BB82-D7E5C6C2F015}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -57,32 +56,37 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Utility\OperationContainer.cs" />
+    <Compile Include="Assets\Scripts\Collecting Object\IDestructible.cs" />
+    <Compile Include="Assets\Scripts\Game\GameOverPresenter.cs" />
     <Compile Include="Assets\Scripts\Utility\GizmosWireCube.cs" />
     <Compile Include="Assets\Scripts\Spawner\SpawnZone.cs" />
+    <Compile Include="Assets\Scripts\Health\HeartView.cs" />
+    <Compile Include="Assets\Scripts\Score\IScoreView.cs" />
     <Compile Include="Assets\Scripts\Health\HealthPresenter.cs" />
+    <Compile Include="Assets\Scripts\Collecting Object\Fruit\FruitAnimator.cs" />
+    <Compile Include="Assets\Scripts\Collecting Object\Bomb\BombPrefabHandler.cs" />
     <Compile Include="Assets\Scripts\Collecting Object\CollectingObject.cs" />
     <Compile Include="Assets\Scripts\Utility\Timer.cs" />
     <Compile Include="Assets\Scripts\Collecting Object\Bomb\Bomb.cs" />
+    <Compile Include="Assets\Scripts\Game\GameOverView.cs" />
     <Compile Include="Assets\Scripts\Health\HealthView.cs" />
     <Compile Include="Assets\Scripts\Health\Health.cs" />
     <Compile Include="Assets\Scripts\Score\Score.cs" />
+    <Compile Include="Assets\Scripts\Spawner\SpawnPrefabCollectingObjects.cs" />
+    <Compile Include="Assets\Scripts\Collecting Object\Fruit\FruitPrefabHandler.cs" />
+    <Compile Include="Assets\Scripts\Collecting Object\BombFloor.cs" />
     <Compile Include="Assets\Scripts\Utility\Extensions\MonoBehaviourEx.cs" />
     <Compile Include="Assets\Scripts\Score\ScoreView.cs" />
-    <Compile Include="Assets\Scripts\Collecting Object\Floor.cs" />
+    <Compile Include="Assets\Scripts\Collecting Object\FruitFloor.cs" />
     <Compile Include="Assets\Scripts\Collecting Object\Fruit\Fruit.cs" />
     <Compile Include="Assets\Scripts\Game\Game.cs" />
-    <Compile Include="Assets\Scripts\Spawner\SpawnPrefabCollectingObjects.cs" />
+    <Compile Include="Assets\Scripts\Collecting Object\Clickable.cs" />
     <Compile Include="Assets\Scripts\Utility\Extensions\Vector3Ex.cs" />
     <Compile Include="Assets\Scripts\Score\ScorePresenter.cs" />
     <Compile Include="Assets\Scripts\EntryPoint.cs" />
     <Compile Include="Assets\Scripts\Collecting Object\MovementFalling.cs" />
-    <Compile Include="Assets\Scripts\Collecting Object\Fruit\FruitPrefabHandler.cs" />
-    <Compile Include="Assets\Scripts\Collecting Object\Bomb\BombPrefabHandler.cs" />
-    <Compile Include="Assets\Scripts\Collecting Object\IDestructible.cs" />
-    <Compile Include="Assets\Scripts\Utility\OperationContainer.cs" />
-    <Compile Include="Assets\Scripts\Game\GameOverView.cs" />
-    <Compile Include="Assets\Scripts\Score\IScoreView.cs" />
-    <Compile Include="Assets\Scripts\Game\GameOverPresenter.cs" />
+    <Compile Include="Assets\Scripts\Game\Background.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

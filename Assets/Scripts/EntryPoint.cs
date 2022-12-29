@@ -40,7 +40,8 @@ public class EntryPoint : MonoBehaviour
         _playerHealth = new Health(_startHealthCount);
 
         _healthView.ThrowExceptionIfNull();
-        _healthView.SetText(_startHealthCount);
+        _healthView.Init(_startHealthCount);
+        _healthView.SetCurrentValue(_startHealthCount);
 
         _healthPresenter = new HealthPresenter(_playerHealth, _healthView);
     }
@@ -68,6 +69,9 @@ public class EntryPoint : MonoBehaviour
     private void SetupGame()
     {
         _timer.ThrowExceptionIfNull();
+
+        _overView.ThrowExceptionIfNull();
+        _overView.SetScoreText(START_SCORE_VALUE);
 
         _gameScorePresenter = new ScorePresenter(_playerScore, _overView);
 
