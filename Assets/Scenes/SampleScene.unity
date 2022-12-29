@@ -1204,7 +1204,7 @@ MonoBehaviour:
   _healthView: {fileID: 23519954}
   _startHealthCount: 5
   _scoreView: {fileID: 1200049850}
-  _list: {fileID: 1266958075}
+  _listPrefab: {fileID: 1266958075}
   _overView: {fileID: 3576418}
   _timer: {fileID: 1266958073}
 --- !u!114 &1266958075
